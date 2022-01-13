@@ -1,0 +1,373 @@
+ScreenManager:
+    
+    MainScreen:
+    Screen1:
+    Screen2:
+    Screen3:
+    Screen_ajuda:
+
+<MainScreen>:
+    name: "mainscreen"
+    FloatLayout:
+
+        MDToolbar:
+            #md_bg_color: 1,1,0,0
+            left_action_items: [["menu", lambda x: app.callback(x)]]
+            title: "Calculadora de Potência"
+            #specific_text_color: app.theme_cls.primary_color
+            pos_hint: {'top': 1}
+            elevation: 0
+
+        Image:
+            source: 'in.png'
+            adaptive_height: True
+            #size_hint: 0.6, 0.5
+            pos_hint: {'center_x': 0.5, 'center_y': 0.6}
+
+        MDRectangleFlatButton:
+            text: "VOLTAGEM MÓDULO"
+            pos_hint: {'center_x': 0.5, 'center_y': 0.3}
+            #size_hint_x: .7
+            #size_hint: None,None
+            on_release:
+                app.root.current = 'screen1'
+                root.manager.transition.direction = 'left'
+                
+
+        MDRectangleFlatButton:
+            text: "AMPERES NECESSÁRIOS"
+            pos_hint: {'center_x': 0.5, 'center_y': 0.2}
+            #size_hint_x: .7
+            #size_hint: None,None
+            on_release:
+                app.root.current = 'screen2'
+                root.manager.transition.direction = 'left'
+        
+        MDRectangleFlatButton:
+            text: "VOLTAGEM FALANTE"
+            pos_hint: {'center_x': 0.5, 'center_y': 0.1}
+            #size_hint_x: .7
+            #size_hint: None,None
+            on_release:
+                app.root.current = 'screen3'
+                root.manager.transition.direction = 'left'
+
+
+<Screen1>:
+    name: "screen1"
+    FloatLayout:
+
+        MDToolbar:
+            #md_bg_color: 1,1,0,0
+            left_action_items: [["menu", lambda x: app.callback(x)]]
+            title: "Calcule Voltagem Aplicada"
+            #specific_text_color: app.theme_cls.primary_color
+            pos_hint: {'top': 1}
+            elevation: 0
+        
+        Image:
+            source: 'modulo.png'
+            #size_hint: .5, .5
+            adaptive_height: True
+            pos_hint: {'center_x': 0.5, 'center_y': 0.25}
+
+        MDLabel:
+         
+            text: "Vamos calcular o quanto de voltagem seu módulo envia." 
+            font_size: 60
+            #color: '#00FF7F'
+            halign: "center" 
+            specific_text_color: app.theme_cls.primary_color  
+            pos_hint: {"center_x": 0.5, "center_y": .85} 
+        
+        MDLabel:
+            id: result_total_volt
+            text: ''
+            font_size: 70
+            color: '#00FF7F'
+            halign: "center"
+            multiline: False
+            pos_hint: {"center_x": .5, "center_y": .4}            
+        
+        MDTextField:
+            id: rms
+            hint_text: "Potencia em RMS do Amplificador"
+            required: True
+            helper_text_mode: "on_error"
+            helper_text: "Insira o Valor RMS do Amplificador"
+            pos_hint: {"center_x": .5, "center_y": .7}
+            size_hint_x: (0.8)
+            icon_right: 'amplifier' #"arm-flex-outline"
+            icon_right_color: app.theme_cls.primary_color
+        
+        MDTextField:
+            id: impedancia
+            hint_text: "Impedância"
+            required: True
+            helper_text_mode: "on_error"
+            helper_text: "Insira o Valor da Impedância"
+            pos_hint: {"center_x": .5, "center_y": .6}
+            size_hint_x: (0.8)
+            icon_right: 'omega'
+            icon_right_color: app.theme_cls.primary_color
+        
+        MDRectangleFlatButton:
+            text: "Calcular"
+            pos_hint: {'center_x': 0.4, 'center_y': 0.5}
+            #size_hint_x: .7
+            #size_hint: None,None
+            on_press: root.calcular_voltagem()
+
+        MDRectangleFlatButton:
+            text: "Limpar"
+            pos_hint: {'center_x': 0.65, 'center_y': 0.5}
+            #size_hint_x: .7
+            #size_hint: None,None
+            on_press: root.limpar()
+
+        MDFloatingActionButton:
+            icon: "android"
+            md_bg_color: app.theme_cls.primary_color
+            icon: "arrow-left"
+            icon_size: "200sp"
+            pos_hint: {"center_x": .9, 'center_y' : .09}
+            on_press:
+                setattr(root.manager, 'current', 'mainscreen')
+                root.manager.transition.direction = 'right'
+                root.limpar()
+        
+
+<Screen2>:
+    name: "screen2"
+    FloatLayout:
+
+        MDToolbar:
+            
+            #md_bg_color: 1,1,0,0
+            left_action_items: [["menu", lambda x: app.callback(x)]]
+            #left_action_items: [["arrow-left", lambda _: setattr(root.manager, 'current', 'mainscreen')]]
+            title: "Calcule Amperes Necessários"
+            #specific_text_color: app.theme_cls.primary_color
+            pos_hint: {'top': 1}
+            elevation: 0
+       
+        Image:
+            source: 'bateria.png'
+            #size_hint: .5, .5
+            adaptive_height: True
+            pos_hint: {'center_x': 0.5, 'center_y': 0.25}
+
+        MDLabel:
+         
+            text: "Calcule quantos ampéres de bateria necessita." 
+            font_size: 60
+            #color: '#00FF7F'
+            halign: "center" 
+            specific_text_color: app.theme_cls.primary_color  
+            pos_hint: {"center_x": 0.5, "center_y": .85} 
+
+        MDLabel:
+         
+            text: "Some a potência de todos os Módulos." 
+            font_size: 60
+            #color: '#00FF7F'
+            halign: "center" 
+            specific_text_color: app.theme_cls.primary_color  
+            pos_hint: {"center_x": 0.5, "center_y": .8}
+                
+        MDLabel:
+            id: result_total_amp
+            text: ''
+            font_size: 70
+            color: '#00FF7F'
+            halign: "center"
+            multiline: False
+            pos_hint: {"center_x": .5, "center_y": .4}
+
+        MDTextField:
+            id: total_rms
+            hint_text: "Total em RMS dos Módulos"
+            required: True
+            helper_text_mode: "on_error"
+            helper_text: "Insira o Valor total dos Módulos"
+            pos_hint: {"center_x": .5, "center_y": .7}
+            size_hint_x: (0.8)
+            icon_right: 'amplifier' #"arm-flex-outline"
+            icon_right_color: app.theme_cls.primary_color
+
+        MDRectangleFlatButton:
+            text: "Calcular"
+            pos_hint: {'center_x': 0.4, 'center_y': 0.5}
+            #size_hint_x: .7
+            #size_hint: None,None
+            on_press: root.calcular_amp()
+
+        MDRectangleFlatButton:
+            text: "Limpar"
+            pos_hint: {'center_x': 0.65, 'center_y': 0.5}
+            #size_hint_x: .7
+            #size_hint: None,None
+            on_press: root.limpar_2()
+        
+        MDFloatingActionButton:
+            icon: "android"
+            md_bg_color: app.theme_cls.primary_color
+            icon: "arrow-left"
+            icon_size: "200sp"
+            pos_hint: {"center_x": .9, 'center_y' : .09}
+            on_press:
+                setattr(root.manager, 'current', 'mainscreen')
+                root.manager.transition.direction = 'right'
+                root.limpar_2()
+        
+                
+<Screen3>:
+    name: "screen3"
+    FloatLayout:
+
+        MDToolbar:
+            #md_bg_color: 1,1,0,0
+            left_action_items: [["menu", lambda x: app.callback(x)]]
+            title: "Voltagem Suportada"
+            #specific_text_color: app.theme_cls.primary_color
+            pos_hint: {'top': 1}
+            elevation: 0
+        
+        Image:
+            source: 'falante.png'
+            #size_hint: .5, .5
+            adaptive_height: True
+            pos_hint: {'center_x': 0.5, 'center_y': 0.25}
+        
+        MDLabel:
+            id: result_total_volt
+            text: ''
+            font_size: 70
+            color: '#00FF7F'
+            halign: "center"
+            multiline: False
+            pos_hint: {"center_x": .5, "center_y": .4}
+         
+        MDLabel:
+         
+            text: "Vamos calcular o quanto de voltagem seu falante vai suportar." 
+            font_size: 60
+            #color: '#00FF7F'
+            halign: "center" 
+            specific_text_color: app.theme_cls.primary_color  
+            pos_hint: {"center_x": 0.5, "center_y": .85}           
+        
+        MDTextField:
+            id: rms
+            hint_text: "Potencia em RMS do Falante"
+            required: True
+            helper_text_mode: "on_error"
+            helper_text: "Insira o Valor RMS do Falante"
+            pos_hint: {"center_x": .5, "center_y": .7}
+            size_hint_x: (0.8)
+            icon_right: 'amplifier' #"arm-flex-outline"
+            icon_right_color: app.theme_cls.primary_color
+        
+        MDTextField:
+            id: impedancia
+            hint_text: "Impedância"
+            required: True
+            helper_text_mode: "on_error"
+            helper_text: "Insira o Valor da Impedância"
+            pos_hint: {"center_x": .5, "center_y": .6}
+            size_hint_x: (0.8)
+            icon_right: 'omega'
+            icon_right_color: app.theme_cls.primary_color
+        
+        MDRectangleFlatButton:
+            text: "Calcular"
+            pos_hint: {'center_x': 0.4, 'center_y': 0.5}
+            #size_hint_x: .7
+            #size_hint: None,None
+            on_press: root.calcular_voltagem()
+
+        MDRectangleFlatButton:
+            text: "Limpar"
+            pos_hint: {'center_x': 0.65, 'center_y': 0.5}
+            #size_hint_x: .7
+            #size_hint: None,None
+            on_press: root.limpar_3()
+
+        MDFloatingActionButton:
+            md_bg_color: app.theme_cls.primary_color
+            icon: "arrow-left"
+            icon_size: "200sp"
+            pos_hint: {"center_x": .9, 'center_y' : .09}
+            on_press:
+                setattr(root.manager, 'current', 'mainscreen')
+                root.manager.transition.direction = 'right'
+                root.limpar_3()
+        
+
+
+<Screen_ajuda>:
+    name: 'ajuda'
+    
+    FloatLayout:
+
+        MDToolbar:
+            
+            #md_bg_color: 1,1,0,0
+            left_action_items: [["menu", lambda x: app.callback(x)]]
+            #left_action_items: [["arrow-left", lambda _: setattr(root.manager, 'current', 'mainscreen')]]
+            title: "FAQ"
+            #specific_text_color: app.theme_cls.primary_color
+            pos_hint: {'top': 1}
+            elevation: 0
+        
+        MDCardView:
+
+    #     MDLabel:
+
+    #         text: '\\n' +\ '\\n' +\ 'Bem vindo a calculadora de Potência Aplicada para Som Automotivo. Aqui vamos Calcular de Maneira rápida, o quanto de voltagem seu módulo envia, o quanto de voltagem seu Falante, Driver ou Twetter suporta e também o quanto de Ampéres de Bateria será necessário para suprir de forma mínima seu Sistema de som.'
+    #         specific_text_color: app.theme_cls.primary_color 
+    #         multiline: True 
+    #         halign: "left" 
+    #         font_size: '50'
+    #         pos_hint: {"center_x": 0.5, "center_y": .8}
+        
+    #     MDLabel:
+
+    #         text: '\\n' +\ '\\n' +\ 'Contato: kassio.info@gmail.com'
+    #         specific_text_color: app.theme_cls.primary_color 
+    #         multiline: True 
+    #         halign: "left" 
+    #         font_size: '50'
+    #         pos_hint: {"center_x": 0.5, "center_y": .44} 
+
+        MDRoundFlatIconButton:
+            icon: "github"
+            text: "GitHub"
+            halign: "center"
+            pos_hint: {'center_x': 0.65, 'center_y': 0.27}
+            #size_hint_x: (0.5)
+            #size_hint: None,None
+            on_release:
+                import webbrowser
+                webbrowser.open('https://github.com/kassi0/')
+
+        MDRoundFlatIconButton:
+            icon: "coffee"
+            text: "Me Pague um Lanche"
+            halign: "center"
+            pos_hint: {'center_x': 0.35, 'center_y': 0.27}
+            #size_hint_x: (0.5)
+            #size_hint: None,None
+            on_release:
+                import webbrowser
+                webbrowser.open('https://mpago.la/1KByM4D')
+        
+        MDFloatingActionButton:
+            icon: "android"
+            md_bg_color: app.theme_cls.primary_color
+            icon: "arrow-left"
+            icon_size: "200sp"
+            pos_hint: {"center_x": .9, 'center_y' : .09}
+            on_press:
+                setattr(root.manager, 'current', 'mainscreen')
+                root.manager.transition.direction = 'right'
