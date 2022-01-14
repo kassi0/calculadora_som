@@ -24,36 +24,37 @@ ScreenManager:
             #size_hint: 0.6, 0.5
             pos_hint: {'center_x': 0.5, 'center_y': 0.6}
 
-        MDRectangleFlatButton:
-            text: "VOLTAGEM MÓDULO"
+        MDRectangleFlatIconButton:
+            icon: "amplifier"
+            text: "MÓDULO - Voltagem na Saída"
             pos_hint: {'center_x': 0.5, 'center_y': 0.3}
-            #size_hint_x: .7
-            #size_hint: None,None
+            size_hint: .5, .05
             on_release:
                 app.root.current = 'screen1'
                 root.manager.transition.direction = 'left'
                 
 
-        MDRectangleFlatButton:
-            text: "AMPERES NECESSÁRIOS"
+        MDRectangleFlatIconButton:
+            icon: "lightning-bolt"
+            text: "BATERIA - Amperes Min. Necessários"
             pos_hint: {'center_x': 0.5, 'center_y': 0.2}
-            #size_hint_x: .7
-            #size_hint: None,None
+            size_hint: .5, .05
             on_release:
                 app.root.current = 'screen2'
                 root.manager.transition.direction = 'left'
         
-        MDRectangleFlatButton:
-            text: "VOLTAGEM FALANTE"
+        MDRectangleFlatIconButton:
+            icon:"speaker"
+            text: "FALANTE - Voltagem Suportada"
             pos_hint: {'center_x': 0.5, 'center_y': 0.1}
-            #size_hint_x: .7
-            #size_hint: None,None
+            size_hint: .5, .05
             on_release:
                 app.root.current = 'screen3'
                 root.manager.transition.direction = 'left'
+            
 
 
-<Screen1>:
+<Screen1>: #Voltavem Modulo
     name: "screen1"
     FloatLayout:
 
@@ -95,6 +96,8 @@ ScreenManager:
             required: True
             helper_text_mode: "on_error"
             helper_text: "Insira o Valor RMS do Amplificador"
+            max_text_length: 8
+            input_type: 'number'
             pos_hint: {"center_x": .5, "center_y": .7}
             size_hint_x: (0.8)
             icon_right: 'amplifier' #"arm-flex-outline"
@@ -106,6 +109,8 @@ ScreenManager:
             required: True
             helper_text_mode: "on_error"
             helper_text: "Insira o Valor da Impedância"
+            input_type: 'number'
+            max_text_length: 2
             pos_hint: {"center_x": .5, "center_y": .6}
             size_hint_x: (0.8)
             icon_right: 'omega'
@@ -114,14 +119,14 @@ ScreenManager:
         MDRectangleFlatButton:
             text: "Calcular"
             pos_hint: {'center_x': 0.4, 'center_y': 0.5}
-            #size_hint_x: .7
+            size_hint: .2, .05
             #size_hint: None,None
             on_press: root.calcular_voltagem()
 
         MDRectangleFlatButton:
             text: "Limpar"
             pos_hint: {'center_x': 0.65, 'center_y': 0.5}
-            #size_hint_x: .7
+            size_hint: .2, .05
             #size_hint: None,None
             on_press: root.limpar()
 
@@ -137,7 +142,7 @@ ScreenManager:
                 root.limpar()
         
 
-<Screen2>:
+<Screen2>: # Amperes Necessários
     name: "screen2"
     FloatLayout:
 
@@ -190,6 +195,8 @@ ScreenManager:
             required: True
             helper_text_mode: "on_error"
             helper_text: "Insira o Valor total dos Módulos"
+            input_type: 'number'
+            max_text_length: 8
             pos_hint: {"center_x": .5, "center_y": .7}
             size_hint_x: (0.8)
             icon_right: 'amplifier' #"arm-flex-outline"
@@ -198,14 +205,14 @@ ScreenManager:
         MDRectangleFlatButton:
             text: "Calcular"
             pos_hint: {'center_x': 0.4, 'center_y': 0.5}
-            #size_hint_x: .7
+            size_hint: .2, .05
             #size_hint: None,None
             on_press: root.calcular_amp()
 
         MDRectangleFlatButton:
             text: "Limpar"
             pos_hint: {'center_x': 0.65, 'center_y': 0.5}
-            #size_hint_x: .7
+            size_hint: .2, .05
             #size_hint: None,None
             on_press: root.limpar_2()
         
@@ -221,7 +228,7 @@ ScreenManager:
                 root.limpar_2()
         
                 
-<Screen3>:
+<Screen3>: # Voltagem Falante
     name: "screen3"
     FloatLayout:
 
@@ -263,6 +270,8 @@ ScreenManager:
             required: True
             helper_text_mode: "on_error"
             helper_text: "Insira o Valor RMS do Falante"
+            input_type: 'number'
+            max_text_length: 8
             pos_hint: {"center_x": .5, "center_y": .7}
             size_hint_x: (0.8)
             icon_right: 'amplifier' #"arm-flex-outline"
@@ -274,6 +283,8 @@ ScreenManager:
             required: True
             helper_text_mode: "on_error"
             helper_text: "Insira o Valor da Impedância"
+            input_type: 'number'
+            max_text_length: 3
             pos_hint: {"center_x": .5, "center_y": .6}
             size_hint_x: (0.8)
             icon_right: 'omega'
@@ -282,14 +293,14 @@ ScreenManager:
         MDRectangleFlatButton:
             text: "Calcular"
             pos_hint: {'center_x': 0.4, 'center_y': 0.5}
-            #size_hint_x: .7
+            size_hint: .2, .05
             #size_hint: None,None
             on_press: root.calcular_voltagem()
 
         MDRectangleFlatButton:
             text: "Limpar"
             pos_hint: {'center_x': 0.65, 'center_y': 0.5}
-            #size_hint_x: .7
+            size_hint: .2, .05
             #size_hint: None,None
             on_press: root.limpar_3()
 
@@ -320,32 +331,36 @@ ScreenManager:
             pos_hint: {'top': 1}
             elevation: 0
         
-        MDCardView:
-
-    #     MDLabel:
-
-    #         text: '\\n' +\ '\\n' +\ 'Bem vindo a calculadora de Potência Aplicada para Som Automotivo. Aqui vamos Calcular de Maneira rápida, o quanto de voltagem seu módulo envia, o quanto de voltagem seu Falante, Driver ou Twetter suporta e também o quanto de Ampéres de Bateria será necessário para suprir de forma mínima seu Sistema de som.'
-    #         specific_text_color: app.theme_cls.primary_color 
-    #         multiline: True 
-    #         halign: "left" 
-    #         font_size: '50'
-    #         pos_hint: {"center_x": 0.5, "center_y": .8}
         
-    #     MDLabel:
 
-    #         text: '\\n' +\ '\\n' +\ 'Contato: kassio.info@gmail.com'
-    #         specific_text_color: app.theme_cls.primary_color 
-    #         multiline: True 
-    #         halign: "left" 
-    #         font_size: '50'
-    #         pos_hint: {"center_x": 0.5, "center_y": .44} 
+        MDLabel:
+
+            text: 'Bem vindo a calculadora de Potência Aplicada para Som Automotivo. Aqui vamos Calcular de Maneira rápida, o quanto de voltagem seu módulo envia, o quanto de voltagem seu Falante, Driver ou Twetter suporta e também o quanto de Ampéres de Bateria será necessário para suprir de forma mínima seu Sistema de som.'
+            specific_text_color: app.theme_cls.primary_color 
+            size_hint_y: None
+            text_size: self.width, None
+            height: self.texture_size[1]
+            multiline: True 
+            halign: "left"
+            padding_left: '30dp' 
+            font_size: '50'
+            pos_hint: {"center_x": 0.5, "center_y": .8}
+       
+        MDLabel:
+
+            text: 'SALK SERVIÇOS ®'
+            specific_text_color: app.theme_cls.primary_color 
+            halign: "center" 
+            font_size: '40'
+            font_style: 'Caption'
+            pos_hint: {"center_x": 0.5, "center_y": .4} 
 
         MDRoundFlatIconButton:
             icon: "github"
             text: "GitHub"
             halign: "center"
             pos_hint: {'center_x': 0.65, 'center_y': 0.27}
-            #size_hint_x: (0.5)
+            #size_hint: .2, .05
             #size_hint: None,None
             on_release:
                 import webbrowser
@@ -356,7 +371,7 @@ ScreenManager:
             text: "Me Pague um Lanche"
             halign: "center"
             pos_hint: {'center_x': 0.35, 'center_y': 0.27}
-            #size_hint_x: (0.5)
+            #size_hint: .2, .05
             #size_hint: None,None
             on_release:
                 import webbrowser
