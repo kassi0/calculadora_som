@@ -28,7 +28,7 @@ ScreenManager:
             icon: "amplifier"
             text: "MÓDULO - Voltagem na Saída"
             pos_hint: {'center_x': 0.5, 'center_y': 0.3}
-            size_hint: .5, .05
+            size_hint: .5, .06
             on_release:
                 app.root.current = 'screen1'
                 root.manager.transition.direction = 'left'
@@ -36,9 +36,9 @@ ScreenManager:
 
         MDRectangleFlatIconButton:
             icon: "lightning-bolt"
-            text: "BATERIA - Amperes Min. Necessários"
+            text: "BATERIA - Amperes Min."
             pos_hint: {'center_x': 0.5, 'center_y': 0.2}
-            size_hint: .5, .05
+            size_hint: .5, .06
             on_release:
                 app.root.current = 'screen2'
                 root.manager.transition.direction = 'left'
@@ -47,7 +47,7 @@ ScreenManager:
             icon:"speaker"
             text: "FALANTE - Voltagem Suportada"
             pos_hint: {'center_x': 0.5, 'center_y': 0.1}
-            size_hint: .5, .05
+            size_hint: .5, .06
             on_release:
                 app.root.current = 'screen3'
                 root.manager.transition.direction = 'left'

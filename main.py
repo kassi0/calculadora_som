@@ -9,13 +9,8 @@ import math
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.button import MDFlatButton
 from kivymd.uix.picker import MDThemePicker
-from kivymd.uix.behaviors.magic_behavior import MagicBehavior
-from kivymd.uix.button import MDRectangleFlatIconButton
 from kivy.config import Config
 Config.set('graphics', 'resizable', True)
-
-class MagicButton(MagicBehavior, MDRectangleFlatIconButton):
-    pass
 
 
 class ScreenManager(ScreenManager):
@@ -105,7 +100,7 @@ class MyApp(MDApp):
     def build(self):
         self.title = "Calculadora de Potência"
         self.icon = 'icon.png'
-        Window.size = (1080, 2400)
+        #Window.size = (1080, 2400)
         self.theme_cls.theme_style = "Dark"  # "Light"
         self.theme_cls.primary_palette = "Purple"  # "Green", "Red"
 
